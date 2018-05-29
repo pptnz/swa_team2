@@ -1,3 +1,11 @@
 <html>
-  <p>Hello, world!</p>
+  <head>
+    <title>Habit Maker</title>
+  </head>
+  {% for habit in habits %}
+    <div>
+      <h2>{{ habit.title }}</h2>
+      <p>since {{ habit.created_date }}</p>
+    </div>
+  {% endfor %}
 </html>

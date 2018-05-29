@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="595f70fe-04a5-4197-b317-c181c8caa53c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/habitmaker/templates/habitmaker/habit_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/habitmaker/templates/habitmaker/habit_list.html" afterPath="$PROJECT_DIR$/habitmaker/templates/habitmaker/habit_list.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/habitmaker/views.py" afterPath="$PROJECT_DIR$/habitmaker/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/todohabit/urls.py" afterPath="$PROJECT_DIR$/todohabit/urls.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,22 +27,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="habit_list.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="habit_list.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/habitmaker/templates/habitmaker/habit_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+            <state relative-caret-position="150">
+              <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/habitmaker/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="38" lean-forward="false" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-              <folding />
+            <state relative-caret-position="150">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -120,9 +121,9 @@
         <option value="$PROJECT_DIR$/todo/urls.py" />
         <option value="$PROJECT_DIR$/habitmaker/urls.py" />
         <option value="$PROJECT_DIR$/todo/views.py" />
-        <option value="$PROJECT_DIR$/habitmaker/templates/habitmaker/habit_list.html" />
         <option value="$PROJECT_DIR$/todohabit/urls.py" />
         <option value="$PROJECT_DIR$/habitmaker/views.py" />
+        <option value="$PROJECT_DIR$/habitmaker/templates/habitmaker/habit_list.html" />
       </list>
     </option>
   </component>
@@ -333,24 +334,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/habitmaker/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/habitmaker/templates/habitmaker/habit_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/todohabit/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -371,10 +354,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/habitmaker/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/habitmaker/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="38" lean-forward="false" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+        <state relative-caret-position="150">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/habitmaker/templates/habitmaker/habit_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
           <folding />
         </state>
       </provider>
