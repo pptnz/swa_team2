@@ -1,0 +1,23 @@
+sudo: required
+
+notifications:
+  email: false
+
+branches:
+  only:
+  - master
+  - development
+
+matrix:
+  include:
+    - language: python
+      python: 3.6
+      cache:
+        pip3: true
+      install:
+        - pip3 install django
+      before_script:
+        - python3 manage.py makemigrations
+        - python3 manage.py migrate
+      script:
+        - python3 manage.py test
