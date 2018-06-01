@@ -49,7 +49,9 @@ def sign_in_page(request):
                 return HttpResponseRedirect(next_page)
 
             # login failed.
-        # todo: add fail logic here
+            return render(request, 'signin/signin.html', {'sign_in_form': sign_in_form})
+
+        # Form is not valid.
         return render(request, 'signin/signin.html', {'sign_in_form': sign_in_form})
 
 
