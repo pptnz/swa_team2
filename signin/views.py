@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
@@ -33,13 +34,23 @@ def sign_in_page(request):
     if request.method == 'POST':
         sign_in_form = SignInForm(request.POST)
         if sign_in_form.is_valid():
-            # If redirected by other sites, user has different next page to redirect.
-            if 'next' in request.GET:
-                next_page = request.GET['next']
+            username = sign_in_form.cleaned_data['username']
+            password = sign_in_form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
 
-            # todo: login here
-            return render(request, 'signin/signin.html', {'sign_in_form': sign_in_form})
-            # return HttpResponseRedirect(next_page)
+            if user is not None:
+                # login succeeded
+                login(request, user)
+
+                # If redirected by other sites, user has different next page to redirect.
+                if 'next' in request.GET:
+                    next_page = request.GET['next']
+
+                return HttpResponseRedirect(next_page)
+
+            # login failed.
+        # todo: add fail logic here
+        return render(request, 'signin/signin.html', {'sign_in_form': sign_in_form})
 
 
 @require_http_methods(['GET'])
