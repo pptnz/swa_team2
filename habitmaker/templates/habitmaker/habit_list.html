@@ -1,18 +1,60 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Habit Maker</title>
+  <link rel="stylesheet" href="{% static 'css/habitmaker.css' %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+
 </head>
+
 <body>
 {% for habit in habits %}
-    <div>
-      <h2>{{ habit.title }}</h2>
-      <p>{{ habit.total_days }}일 째 도전 중</p>
-      <p>어제까지 {{ habit.success_days }}일 성공</p>
-      <p>성공률 {{ habit.success_rate }} %</p>
+  <div>
+    {% if habit.today_success.count > 0 %}
+      <input type="button" class="success checked" id="success-checked-{{ habit.id }}" name="{{ habit.id }}" >
+    {% else %}
+      <input type="button" class="success unchecked" id="success-unchecked-{{ habit.id }}" name="{{ habit.id }}">
+    {% endif %}
+
+    <h2 style="display:inline">{{ habit.title }}</h2>
+
+    <p id="success-rate-{{ habit.pk }}">{{ habit.success_rate }} %</p>
+    <p>{{ habit.total_days }}일 째 도전 중</p>
+    <p id="success-days-{{ habit.pk }}">{{ habit.success_days }}일 성공</p>
     </div>
     <br>
   {% endfor %}
 </body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+  $(document).on('click', '.success', function(){
+    var pk = $(this).attr('name');
+
+    $.ajax({
+      type: "POST",
+      url: "{% url 'toggle_success' %}",
+      data: {'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+      dataType: "json",
+
+      success: function(response){
+        $("#success-rate-" + pk).html(response.success_rate+" %");
+        $("#success-days-" + pk).html(response.success_days+"일 성공");
+
+        if (response.is_created == 1) {
+            $("#success-unchecked-" + pk).toggleClass('unchecked checked');
+            $("#success-checked-" + pk).toggleClass('checked unchecked');
+        } else {
+            $("#success-unchecked-" + pk).toggleClass('unchecked checked');
+            $("#success-checked-" + pk).toggleClass('checked unchecked');
+        }
+      },
+    });
+
+
+  });
+</script>
 </html>

@@ -5,22 +5,33 @@ from django.utils import timezone
 class Habit(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
-    created_date = models.DateTimeField(default=timezone.now    )
 
+    created_date = models.DateField(default=timezone.now)
     success_days = models.PositiveIntegerField()
 
-    def check_success(self):
+    def today_success(self):
+        success = SuccessCheck.objects.all().filter(habit=self).filter(date=timezone.now())
+        return success
+
+    def create_success(self):
+        print(self.title, "created")
         self.success_days += 1
-        SuccessCheck.objects.create(habit=self, date=timezone.now)
+        self.save()
+        SuccessCheck.objects.create(habit=self)
+
+    def delete_success(self, success):
+        print(self.title, "deleted")
+        self.success_days -= 1
+        self.save()
+        success.delete()
 
     def total_days(self):
-        return (timezone.now().date() - self.created_date.date()).days
+        return (timezone.now().date() - self.created_date).days
 
     def success_rate(self):
-        return "{:.3f}".format(100 * self.success_days / self.total_days())
+        return "{:.0f}".format(100 * self.success_days / self.total_days())
 
 
 class SuccessCheck(models.Model):
     habit = models.ForeignKey(Habit, null=False, on_delete=models.CASCADE)
-    date = models.DateTimeField(default=timezone.now)
-
+    date = models.DateField(default=timezone.now)
