@@ -19,11 +19,10 @@
       <input type="button" class="success unchecked" id="success-unchecked-{{ habit.id }}" name="{{ habit.id }}">
     {% endif %}
 
-    <h2 style="display:inline">{{ habit.title }}</h2>
-
-    <p id="success-rate-{{ habit.pk }}">{{ habit.success_rate }} %</p>
-    <p>{{ habit.total_days }}일 째 도전 중</p>
-    <p id="success-days-{{ habit.pk }}">{{ habit.success_days }}일 성공</p>
+    <h2 style="display: inline">{{ habit.title }}</h2>
+    <p style="display: inline" id="success-rate-{{ habit.pk }}">({{ habit.success_rate }} %)</p><br>
+    <p style="display: inline">{{ habit.total_days }}일 째 도전 중, </p>
+    <p style="display: inline" id="success-days-{{ habit.pk }}">{{ habit.success_days }}일 성공</p>
     </div>
     <br>
   {% endfor %}
@@ -41,7 +40,7 @@
       dataType: "json",
 
       success: function(response){
-        $("#success-rate-" + pk).html(response.success_rate+" %");
+        $("#success-rate-" + pk).html("("+response.success_rate+" %)");
         $("#success-days-" + pk).html(response.success_days+"일 성공");
 
         if (response.is_created == 1) {
