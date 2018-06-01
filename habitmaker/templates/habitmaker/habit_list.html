@@ -1,11 +1,18 @@
-<html>
-  <head>
-    <title>Habit Maker</title>
-  </head>
-  {% for habit in habits %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Habit Maker</title>
+</head>
+<body>
+{% for habit in habits %}
     <div>
       <h2>{{ habit.title }}</h2>
-      <p>since {{ habit.created_date }}</p>
+      <p>{{ habit.total_days }}일 째 도전 중</p>
+      <p>어제까지 {{ habit.success_days }}일 성공</p>
+      <p>성공률 {{ habit.success_rate }} %</p>
     </div>
+    <br>
   {% endfor %}
+</body>
 </html>
