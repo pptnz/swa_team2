@@ -1,0 +1,21 @@
+html {
+  font-family: "Noto Sans KR", "PT Sans", Helvetica, Arial, sans-serif;
+}
+
+h2 {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.checked {
+    border-radius:0%;
+    background-color: #4CAF50;
+    height: 2em;
+    width: 2em;
+}
+.unchecked {
+    border-radius:0%;
+    background-color: white;
+    height: 2em;
+    width: 2em;
+}
