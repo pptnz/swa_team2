@@ -60,4 +60,4 @@ def sign_in_redirect(request):
     """
     Redirect to sign-in page.
     """
-    return HttpResponseRedirect("/sign_in")
+    return HttpResponseRedirect("/sign_in/")
