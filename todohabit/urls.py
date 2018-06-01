@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from signin.views import sign_in_redirect
 
 urlpatterns = [
-    url(r'^', include('signin.urls')),
+    url(r'^sign_in/', include('signin.urls')),
     url(r'^todo/', include('todo.urls')),
     url(r'^habitmaker/', include('habitmaker.urls')),
-    url(r'^admin/', admin.site.urls)
+    url(r'^admin/', admin.site.urls),
+    url(r'^$', sign_in_redirect)
 ]

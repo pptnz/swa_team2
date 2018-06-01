@@ -125,4 +125,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Login URL
-LOGIN_URL = '/'
+LOGIN_URL = '/sign_in/'
