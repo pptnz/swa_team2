@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils import timezone
+from signin.models import CustomUser
 
 
 class Habit(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
 
     created_date = models.DateField(default=timezone.now)
@@ -14,13 +15,11 @@ class Habit(models.Model):
         return success
 
     def create_success(self):
-        print(self.title, "created")
         self.success_days += 1
         self.save()
         SuccessCheck.objects.create(habit=self)
 
     def delete_success(self, success):
-        print(self.title, "deleted")
         self.success_days -= 1
         self.save()
         success.delete()
