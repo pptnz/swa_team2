@@ -44,8 +44,20 @@ class HabitTestCase(TestCase):
         response1 = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
         self.assertRedirects(response1, '/habitmaker/')
 
+        response = self.client.post('/habitmaker/',
+                                    {'habit': "be happy"})
+        self.assertRedirects(response, '/habitmaker/')
+
+        response = self.client.get('/habitmaker/')
+        self.assertContains(response, 'be happy')
+
+    def test_habit_list_invalid_post(self):
+        response1 = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
+        self.assertRedirects(response1, '/habitmaker/')
+
         response = self.client.post('/habitmaker/')
-        self.assertEqual(response.status_code, 405)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'read books')
 
     def test_toggle_success_post(self):
         response = self.client.post('/habitmaker/toggle_success/',

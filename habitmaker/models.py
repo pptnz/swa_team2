@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from signin.models import CustomUser
+from datetime import timedelta
 
 
 class Habit(models.Model):
@@ -8,7 +9,7 @@ class Habit(models.Model):
     title = models.CharField(max_length=30)
 
     created_date = models.DateField(default=timezone.now)
-    success_days = models.PositiveIntegerField()
+    success_days = models.PositiveIntegerField(default=0)
 
     def today_success(self):
         success = SuccessCheck.objects.all().filter(habit=self).filter(date=timezone.now())
@@ -25,7 +26,7 @@ class Habit(models.Model):
         success.delete()
 
     def total_days(self):
-        return (timezone.now().date() - self.created_date).days
+        return (timezone.now().date() - self.created_date + timedelta(days=2)).days
 
     def success_rate(self):
         return "{:.0f}".format(100 * self.success_days / self.total_days())
