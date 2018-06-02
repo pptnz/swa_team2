@@ -52,27 +52,24 @@ class HabitTestCase(TestCase):
         self.assertContains(response, 'be happy')
 
     def test_habit_list_invalid_post(self):
-        response1 = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
-        self.assertRedirects(response1, '/habitmaker/')
+        response = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
+        self.assertRedirects(response, '/habitmaker/')
 
         response = self.client.post('/habitmaker/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'read books')
 
-    def test_toggle_success_post(self):
-        response = self.client.post('/habitmaker/toggle_success/',
-                                    {'pk': self.habit1.pk}
-                                    )
-        self.assertEqual(response.status_code, 200)
-        data = json.loads(response.content.decode())
-        self.assertEqual(data['success_days'], 2)
-        self.assertEqual(data['is_created'], 1)
+    def test_toggle_success_get(self):
+        self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
 
-        response = self.client.post('/habitmaker/toggle_success/',
-                                    {'pk': self.habit1.pk},
-                                    format='multipart'
-                                    )
-        self.assertEqual(response.status_code, 200)
-        data = json.loads(response.content.decode())
-        self.assertEqual(data['success_days'], 1)
-        self.assertEqual(data['is_created'], 0)
+        response = self.client.get('/habitmaker/2/toggle_success/')
+        self.assertRedirects(response, '/habitmaker/')
+
+        response = self.client.get('/habitmaker/')
+        self.assertContains(response, 'read books')
+
+        response = self.client.get('/habitmaker/2/toggle_success/')
+        self.assertRedirects(response, '/habitmaker/')
+
+        response = self.client.get('/habitmaker/')
+        self.assertContains(response, 'read books')

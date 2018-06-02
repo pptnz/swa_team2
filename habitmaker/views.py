@@ -34,20 +34,15 @@ def habit_list(request):
         return render(request, 'habitmaker/habit_list.html', {'habits': habits, 'habit_form': habit_form})
 
 
-@require_POST
-def toggle_success(request):
-    pk = request.POST.get('pk', None)
+@require_GET
+def toggle_success(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
 
     success = habit.today_success()
 
     if success.count() == 0:
         habit.create_success()
-        success_rate = habit.success_rate()
-        context = {'success_rate': success_rate, 'success_days': habit.success_days, 'is_created': 1}
+
     else:
         habit.delete_success(success)
-        success_rate = habit.success_rate()
-        context = {'success_rate': success_rate, 'success_days': habit.success_days, 'is_created': 0}
-
-    return HttpResponse(json.dumps(context), content_type="application/json")
+    return HttpResponseRedirect('/habitmaker/')

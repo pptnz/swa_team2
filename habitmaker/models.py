@@ -29,7 +29,7 @@ class Habit(models.Model):
         return (timezone.now().date() - self.created_date + timedelta(days=2)).days
 
     def success_rate(self):
-        return "{:.0f}".format(100 * self.success_days / self.total_days())
+        return int(100 * self.success_days / self.total_days())
 
 
 class SuccessCheck(models.Model):

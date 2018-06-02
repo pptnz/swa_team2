@@ -1,5 +1,5 @@
 html {
-  font-family: "Noto Sans KR", "PT Sans", Helvetica, Arial, sans-serif;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
 }
 
 h2 {
@@ -7,15 +7,20 @@ h2 {
     text-decoration: underline;
 }
 
-.checked {
-    border-radius:0%;
-    background-color: #4CAF50;
-    height: 2em;
-    width: 2em;
+table {
+    border-spacing: 40px;
 }
-.unchecked {
+
+.checkbox {
     border-radius:0%;
     background-color: white;
     height: 2em;
     width: 2em;
+}
+
+.weather {
+    border-radius:0%;
+    background-color: white;
+    height: 3em;
+    width: 3em;
 }
