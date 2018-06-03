@@ -6,7 +6,7 @@ from datetime import timedelta
 
 class Habit(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=20)
 
     created_date = models.DateField(default=timezone.now)
     success_days = models.PositiveIntegerField(default=0)
@@ -26,7 +26,7 @@ class Habit(models.Model):
         success.delete()
 
     def total_days(self):
-        return (timezone.now().date() - self.created_date + timedelta(days=2)).days
+        return (timezone.now().date() - self.created_date + timedelta(days=1)).days
 
     def success_rate(self):
         return int(100 * self.success_days / self.total_days())
