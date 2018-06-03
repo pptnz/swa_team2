@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponseRedirect
 from .forms import SignUpForm
+from signin.models import User, CustomUser
 
 
 @require_http_methods(['GET', 'POST'])
@@ -33,9 +34,13 @@ def sign_up_page(request):
     if request.method == 'POST':
         sign_up_form = SignUpForm(request.POST)
         if sign_up_form.is_valid():
-            data = sign_up_form.cleaned_data
-            print(data['username'], data['password'], data['nickname'], data['email'])
-            return render(request, 'signup/signup.html', {'sign_up_form': sign_up_form})
+            # sign-up wigh given data.
+            form_data = sign_up_form.cleaned_data
+            username = form_data['username']
+            password = form_data['password']
+            nickname = form_data['nickname']
+            email = form_data['email']
+
 
         # form not valid.
         return render(request, 'signup/signup.html', {'sign_up_form': sign_up_form})
