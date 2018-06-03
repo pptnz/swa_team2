@@ -1,7 +1,14 @@
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
 from django.shortcuts import render
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.decorators.http import require_http_methods
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import login, authenticate
+
+from .tokens import account_activation_token
 from .forms import SignUpForm
 from signin.models import User, CustomUser
 
@@ -50,15 +57,38 @@ def sign_up_page(request):
                 new_user.save()
 
                 # todo: send email
+                current_site = get_current_site(request)
+                mail_subject = '아구아구: 이메일을 인증해주세요.'
+                message = render_to_string('signup/verification_email.html', {
+                    'nickname': nickname,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(new_user.pk)),
+                    'token': account_activation_token.make_token(new_user),
+                })
+                email = EmailMessage(
+                    mail_subject, message, to=[email]
+                )
+                email.send()
 
             # Try login with the new user.
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect('/habitmaker/')
-            else:
-                # An error occurred.
-                return render(request, 'signup/signup.html', {'sign_up_form': sign_up_form})
+            login(request, new_user)
+            return HttpResponseRedirect('/habitmaker/')
 
         # form not valid.
         return render(request, 'signup/signup.html', {'sign_up_form': sign_up_form})
+
+
+def activate_email(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        django_user = User.objects.get(pk=uid)
+        custom_user = django_user.custom_user
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        return HttpResponse('인증 오류가 발생하였습니다.')
+
+    if account_activation_token.check_token(django_user, token):
+        custom_user.authenticate_email()
+        custom_user.save()
+        return HttpResponseRedirect('/signin/')
+    else:
+        return HttpResponse('인증 오류가 발생하였습니다.')
