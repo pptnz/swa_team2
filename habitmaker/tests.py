@@ -2,6 +2,8 @@ import json
 
 from django.test import TestCase, Client
 from .models import Habit, SuccessCheck
+from django.apps import apps
+from .apps import HabitmakerConfig
 from signin.models import User, CustomUser
 
 
@@ -29,6 +31,10 @@ class HabitTestCase(TestCase):
         self.success_check4.save()
 
         self.client = Client()
+
+    def test_apps(self):
+        self.assertEqual(HabitmakerConfig.name, 'habitmaker')
+        self.assertEqual(apps.get_app_config('habitmaker').name, 'habitmaker')
 
     def test_habit_list_get(self):
         response1 = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
