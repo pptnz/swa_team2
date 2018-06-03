@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'signin',
-    'todo',
     'habitmaker',
+    'todo'
 ]
 
 MIDDLEWARE = [
