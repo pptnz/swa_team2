@@ -131,6 +131,6 @@ LOGIN_URL = '/sign_in/'
 # Email Information
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'aguagu.team@gmail.com'
+EMAIL_HOST_USER = 'momentum.service12@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587

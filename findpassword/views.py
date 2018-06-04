@@ -64,7 +64,7 @@ def find_password_page(request):
                 return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
 
             if not custom_user.is_email_authenticated:
-                messages.info(request, '이메일이 등록되지 않는 ID입니다. 비밀번호 찾기가 불가능합니다.')
+                messages.info(request, '이메일이 등록되지 않은 ID입니다. 비밀번호 찾기가 불가능합니다.')
                 return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
 
             if django_user.email != email:
@@ -72,10 +72,13 @@ def find_password_page(request):
                 return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
 
             # send email
+            temp_password = random_password()
+            django_user.set_password(temp_password)
+            django_user.save()
             mail_subject = '아구아구: 임시 비밀번호를 보내드립니다.'
-            message = render_to_string('signup/verification_email.html', {
+            message = render_to_string('findpassword/temp_password_email.html', {
                 'nickname': django_user.first_name,
-                'temp_password': random_password()
+                'temp_password': temp_password
             })
             email = EmailMessage(
                 mail_subject, message, to=[email]
@@ -83,6 +86,7 @@ def find_password_page(request):
             email.send()
 
             # Redirect to main page
+            messages.info(request, '이메일로 임시 비밀번호를 전송했습니다.')
             return HttpResponseRedirect('/sign_in/')
 
         # form is not valid.
