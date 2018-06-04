@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Agu Agu</title>
+    <title>Sign Up</title>
 </head>
 <body>
     {% if messages %}
@@ -12,10 +12,10 @@
             {% endfor %}
         </ul>
     {% endif %}
-    Sign In Page!
+    Sign Up Page!
     <form method="post">
         {% csrf_token %}
-        {{ sign_in_form }}
+        {{ sign_up_form }}
         <input type="submit" value="Submit" />
     </form>
     <br />
