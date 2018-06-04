@@ -33,7 +33,6 @@ def sign_up_page(request):
             - If not, do nothing.
     """
 
-    # todo: change this default link
     if request.user.is_authenticated:
         return HttpResponseRedirect('/habitmaker/')
 
@@ -65,7 +64,6 @@ def sign_up_page(request):
                 new_user.email = email
                 new_user.save()
 
-                # todo: send email
                 current_site = get_current_site(request)
                 mail_subject = '아구아구: 이메일을 인증해주세요.'
                 message = render_to_string('signup/verification_email.html', {
