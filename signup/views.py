@@ -79,6 +79,7 @@ def sign_up_page(request):
 
             # Try login with the new user.
             login(request, new_user)
+            messages.info(request, '회원가입이 완료되었습니다!')
             return HttpResponseRedirect('/habitmaker/')
 
         # form not valid.
