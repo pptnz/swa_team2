@@ -1,17 +1,16 @@
-import json
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.decorators.http import require_GET, require_POST
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_GET, require_http_methods
 
 from signin.models import CustomUser
-from .models import Habit, SuccessCheck
-from django.utils import timezone
 from .forms import HabitForm
+from .models import Habit
 
 
 # Create your views here.
 @login_required
+@require_http_methods(['GET', 'POST'])
 def habit_list(request):
     if request.method == 'GET':
         # habits = Habit.objects.filter(user=request.user).order_by('created_date')

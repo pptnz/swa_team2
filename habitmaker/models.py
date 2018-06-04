@@ -26,7 +26,10 @@ class Habit(models.Model):
         success.delete()
 
     def total_days(self):
-        return (timezone.now().date() - self.created_date + timedelta(days=1)).days
+        days = (timezone.now().date() - self.created_date + timedelta(days=1)).days
+        if days < 1:
+            return 1
+        return days
 
     def success_rate(self):
         return int(100 * self.success_days / self.total_days())

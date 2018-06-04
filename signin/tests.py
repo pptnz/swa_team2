@@ -3,12 +3,18 @@ import json
 from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import CustomUser
+from django.apps import apps
+from .apps import SigninConfig
 
 
 class SignInTest(TestCase):
     def setUp(self):
         self.django_user = User.objects.create_user(username='testusername', password='testpassword')
         self.custom_user = CustomUser.objects.create(django_user=self.django_user)
+
+    def test_apps(self):
+        self.assertEqual(SigninConfig.name, 'signin')
+        self.assertEqual(apps.get_app_config('signin').name, 'signin')
 
     def test_sign_in_redirect_page(self):
         response = self.client.get('/')

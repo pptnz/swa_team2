@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'signin',
-    'todo',
+    'signup',
+    'findpassword',
     'habitmaker',
+    'todo'
 ]
 
 MIDDLEWARE = [
@@ -125,3 +127,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'todohabit/../habitmaker/static')
 
 # Login URL
 LOGIN_URL = '/sign_in/'
+
+# Email Information
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'momentum.service12@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587

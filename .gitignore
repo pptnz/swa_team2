@@ -9,7 +9,8 @@ __pycache__/
 
 # Django
 db.sqlite3
-migrations/
+**/migrations/*
+!**/migrations/__init__.py
 
 # Coverage
 htmlcov/

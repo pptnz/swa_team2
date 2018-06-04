@@ -2,6 +2,8 @@ import json
 
 from django.test import TestCase, Client
 from .models import Habit, SuccessCheck
+from django.apps import apps
+from .apps import HabitmakerConfig
 from signin.models import User, CustomUser
 
 
@@ -30,9 +32,13 @@ class HabitTestCase(TestCase):
 
         self.client = Client()
 
+    def test_apps(self):
+        self.assertEqual(HabitmakerConfig.name, 'habitmaker')
+        self.assertEqual(apps.get_app_config('habitmaker').name, 'habitmaker')
+
     def test_habit_list_get(self):
-        response1 = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
-        self.assertRedirects(response1, '/habitmaker/')
+        response = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
+        self.assertRedirects(response, '/habitmaker/')
 
         response = self.client.get('/habitmaker/')
         self.assertEqual(response.status_code, 200)
@@ -41,8 +47,8 @@ class HabitTestCase(TestCase):
         self.assertContains(response, 'study english')
 
     def test_habit_list_post(self):
-        response1 = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
-        self.assertRedirects(response1, '/habitmaker/')
+        response = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
+        self.assertRedirects(response, '/habitmaker/')
 
         response = self.client.post('/habitmaker/',
                                     {'habit': "be happy"})
@@ -50,6 +56,14 @@ class HabitTestCase(TestCase):
 
         response = self.client.get('/habitmaker/')
         self.assertContains(response, 'be happy')
+
+    def test_habit_list_else(self):
+        response = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
+        self.assertRedirects(response, '/habitmaker/')
+
+        response = self.client.put('/habitmaker/',
+                                    {'habit': "be happy"})
+        self.assertEqual(response.status_code, 405)
 
     def test_habit_list_invalid_post(self):
         response = self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
