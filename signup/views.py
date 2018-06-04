@@ -1,3 +1,6 @@
+import sqlite3
+
+from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.shortcuts import render
@@ -6,7 +9,8 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
+from django.db.utils import IntegrityError
 
 from .tokens import account_activation_token
 from .forms import SignUpForm
@@ -40,15 +44,20 @@ def sign_up_page(request):
     if request.method == 'POST':
         sign_up_form = SignUpForm(request.POST)
         if sign_up_form.is_valid():
-            # sign-up wigh given data.
+            # sign-up with given data.
             form_data = sign_up_form.cleaned_data
             username = form_data['username']
             password = form_data['password']
             nickname = form_data['nickname']
             email = form_data['email']
 
-            new_user = User.objects.create_user(username=username, password=password, first_name=nickname)
-            CustomUser.objects.create(django_user=new_user, is_email_authenticated=False)
+            try:
+                new_user = User.objects.create_user(username=username, password=password, first_name=nickname)
+                CustomUser.objects.create(django_user=new_user, is_email_authenticated=False)
+            except (sqlite3.IntegrityError, IntegrityError):
+                # username is duplicated
+                messages.info(request, '이미 존재하는 ID입니다. 다른 ID를 사용해주세요.')
+                return render(request, 'signup/signup.html', {'sign_up_form': sign_up_form})
 
             # Send email if email is given.
             if len(email) != 0:
