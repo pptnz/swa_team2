@@ -33,7 +33,6 @@ def sign_up_page(request):
             - If not, do nothing.
     """
 
-    # todo: change this default link
     if request.user.is_authenticated:
         return HttpResponseRedirect('/habitmaker/')
 
@@ -48,9 +47,15 @@ def sign_up_page(request):
             form_data = sign_up_form.cleaned_data
             username = form_data['username']
             password = form_data['password']
+            password_check = form_data['password_check']
             nickname = form_data['nickname']
             email = form_data['email']
 
+            if password != password_check:
+                messages.info(request, '비밀번호가 일치하지 않습니다.')
+                return render(request, 'signup/signup.html', {'sign_up_form': sign_up_form})
+
+            # check if duplicated user exists.
             try:
                 new_user = User.objects.create_user(username=username, password=password, first_name=nickname)
                 CustomUser.objects.create(django_user=new_user, is_email_authenticated=False)
@@ -65,7 +70,6 @@ def sign_up_page(request):
                 new_user.email = email
                 new_user.save()
 
-                # todo: send email
                 current_site = get_current_site(request)
                 mail_subject = '아구아구: 이메일을 인증해주세요.'
                 message = render_to_string('signup/verification_email.html', {
@@ -81,6 +85,7 @@ def sign_up_page(request):
 
             # Try login with the new user.
             login(request, new_user)
+            messages.info(request, '회원가입이 완료되었습니다!')
             return HttpResponseRedirect('/habitmaker/')
 
         # form not valid.

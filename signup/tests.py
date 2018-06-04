@@ -26,19 +26,28 @@ class SignUpTestCase(TestCase):
         response = self.client.post('/sign_up/', {'username': 'wrongusername'})
         self.assertEqual(response.status_code, 200)
 
+    def test_post_wrong_password_check(self):
+        response = self.client.post('/sign_up/',
+                                    {'username': 'testusername', 'password': 'diffpassword',
+                                     'password_check': 'wrongpassword', 'nickname': 'hello'})
+        self.assertEqual(response.status_code, 200)
+
     def test_post_duplicated_user(self):
         response = self.client.post('/sign_up/',
-                                    {'username': 'testusername', 'password': 'diffpassword', 'nickname': 'hello'})
+                                    {'username': 'testusername', 'password': 'diffpassword',
+                                     'password_check': 'diffpassword', 'nickname': 'hello'})
         self.assertEqual(response.status_code, 200)
 
     def test_post_no_email(self):
         response = self.client.post('/sign_up/',
-                                    {'username': 'diffusername', 'password': 'diffpassword', 'nickname': 'hello'})
+                                    {'username': 'diffusername', 'password': 'diffpassword',
+                                     'password_check': 'diffpassword', 'nickname': 'hello'})
         self.assertRedirects(response, '/habitmaker/')
 
     def test_post_email(self):
         response = self.client.post('/sign_up/',
-                                    {'username': 'diffusername', 'password': 'diffpassword', 'nickname': 'hello',
+                                    {'username': 'diffusername', 'password': 'diffpassword',
+                                     'password_check': 'diffpassword', 'nickname': 'hello',
                                      'email': 'abc@def.ghi'})
         self.assertRedirects(response, '/habitmaker/')
 
