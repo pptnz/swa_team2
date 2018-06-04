@@ -71,7 +71,7 @@ def sign_up_page(request):
                 message = render_to_string('signup/verification_email.html', {
                     'nickname': nickname,
                     'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(new_user.pk)),
+                    'uid': urlsafe_base64_encode(force_bytes(new_user.pk)).decode(),
                     'token': account_activation_token.make_token(new_user),
                 })
                 email = EmailMessage(
@@ -93,11 +93,14 @@ def activate_email(request, uidb64, token):
         django_user = User.objects.get(pk=uid)
         custom_user = django_user.custom_user
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        return HttpResponse('인증 오류가 발생하였습니다.')
+        messages.info(request, '인증 오류가 발생하였습니다.')
+        return HttpResponseRedirect('/sign_in/')
 
     if account_activation_token.check_token(django_user, token):
         custom_user.authenticate_email()
         custom_user.save()
-        return HttpResponseRedirect('/signin/')
+        messages.info(request, '성공적으로 인증되었습니다.')
+        return HttpResponseRedirect('/sign_in/')
     else:
-        return HttpResponse('인증 오류가 발생하였습니다.')
+        messages.info(request, '인증 오류가 발생하였습니다.')
+        return HttpResponseRedirect('/sign_in/')
