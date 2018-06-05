@@ -1,5 +1,6 @@
 # swa_team2
-SNU Software Application Team 2: To-do List, Habit Maker
+SNU Software Application Team 2: Momentum
+Seize the Moment, Keep Your Momentum
 
 | Banch | master | development |
 |:---: | :---: | :---: |
