@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;" charset="utf-8" />
+        <title>Add Todo</title>
+        <link rel="stylesheet" href="../../static/todo.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous" charset='utf-8'></script>
+        <script type="text/javascript" src="../../static/todo.js" charset='utf-8'></script>
+    </head>
+    <body>
+        <div id = 'header'><h1 id = 'title'>주간 플래너</h1></div>
+        <button id = 'todoadd'>Add New</button>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                {% block content %}
+                    <h1>New post</h1>
+                    <form method="POST" class="post-form">{% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" id = "submit" class="save btn btn-default">Save</button>
+                    </form>
+                {% endblock %}
+
+            </div>
+        </div>
+        <div id = 'scheduler-wrap'>
+            <div id = 'grid'>
+
+            </div>
+        </div>
+    </body>
+</html>
