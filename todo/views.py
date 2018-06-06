@@ -24,8 +24,7 @@ def post_todo(request):
     if request.method == 'POST':
         form = ToDoForm(request.POST)
         if form.is_valid():
-            # user = request.user
-            user = CustomUser.objects.get(pk=1)
+            user = request.user.custom_user
             title = form.cleaned_data['title']
             date = form.cleaned_data['date']
             start_time = form.cleaned_data['start_time']
