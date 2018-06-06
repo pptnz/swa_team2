@@ -26,12 +26,12 @@ class Scheduler extends DomObject{
         this.newChild($('<div id = "todo-wrap" class = "mainwrap"></div>'))
         this.newChild($('<div id = "schedule-wrap" class = "mainwrap"></div>'))
         for( let i = 0 ; i < 7 ; i++ ){
-            this.dom.children(0).eq(0).append($('<div class = "weekday">'+'¿ùÈ­¼ö¸ñ±İÅäÀÏ'.slice(i,i+1)+'</div>'))
+            this.dom.children(0).eq(0).append($('<div class = "weekday">'+'ì›”í™”ìˆ˜ëª©ê¸ˆí† ì¼'.slice(i,i+1)+'</div>'))
         }
         for( let i = 0 ; i < 5 ; i++ ){
             this.dom.children(0).eq(1).append($('<div class = "todoline"></div>'))
             for( let j = 0 ; j < 7 ; j++ ){
-                this.dom.children(0).eq(1).children().eq(i).append($('<div class = "todo"></div>'))
+                this.dom.children(0).eq(1).children().eq(i).append($('<div class = "todo">&nbsp</div>'))
             }
         }
         for( let i = 0 ; i < 19 ; i++ ){
@@ -40,7 +40,7 @@ class Scheduler extends DomObject{
                 this.dom.children(0).eq(2).children().eq(i).append($('<div class = "dayline"></div>'))
                     this.dom.children(0).eq(2).children().eq(i).children().eq(j).append($('<div class = "minute">'+((i+7)%24).toString()+'</div>'))
                 for( let  k = 1 ; k < 7 ; k ++ ){
-                    this.dom.children(0).eq(2).children().eq(i).children().eq(j).append($('<div class = "minute">.</div>'))
+                    this.dom.children(0).eq(2).children().eq(i).children().eq(j).append($('<div class = "minute">&nbsp</div>'))
                 }
             }
         }
@@ -58,17 +58,6 @@ $(document).ready(function(){
 
             // Get the <span> element that closes the modal
             var span = document.getElementsByClassName("close")[0];
-
-            $("#submit").on("click",()=>{modal.style.display="none"})
-            // When the user clicks on the button, open the modal
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
 
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function(event) {

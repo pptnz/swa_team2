@@ -11,8 +11,8 @@ from .forms import ToDoForm
 @login_required
 def todo(request):
     header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
-
-    return render(request, 'todo/todo.html', {'header_bar': header_bar})
+    todo_list = ToDo.objects.filter(user = request.user.custom_user)
+    return render(request, 'todo/todo.html', {'header_bar': header_bar, 'todo' : todo_list })
 
 @login_required
 def post_todo(request):

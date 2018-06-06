@@ -8,9 +8,93 @@
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous" charset='utf-8'></script>
         <script type="text/javascript" src="../../static/todo.js" charset='utf-8'></script>
+        <script type="text/javascript">
+        var today
+        var monday
+        var sunday
+        var thisWeeks
+        function getRandomColor() {
+              var letters = '0123456789ABCDEF';
+              var color = '#';
+              for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+              }
+              return color;
+        }
+        $(document).ready(function(){
+           var weekday = {% now "w" %}-1
+           today = new Date("{% now "d/M/Y" %}")
+           monday = new Date("{% now "d/M/Y" %}")
+           sunday = new Date("{% now "d/M/Y" %}")
+           monday.setDate(today.getDate()-weekday)
+           sunday.setDate(monday.getDate()+6)
+           {% for schedule in todo %}
+                thisWeeks = new Date("{{ schedule.date }}")
+                var endDate = new Date("{{ schedule.repetition_end }}")
+                if( "{{ schedule.repetition }}"=="True" ){
+                    while( thisWeeks < monday && thisWeeks <= endDate - 7 ){
+                        thisWeeks.setDate( thisWeeks.getDate() + 7 )
+                    }
+                }
+                if( thisWeeks >= monday && thisWeeks <= sunday ){
+                    var rc = getRandomColor()
+                    var day = thisWeeks.getDay() - 1
+                    var spacefinder = 0 ;
+                    while( spacefinder < 5 ){
+                        space = scheduler.dom.children(0).eq(1).children().eq(spacefinder).children().eq(day)
+                        if( space.html() != "&nbsp;" ){
+                            spacefinder += 1
+                        }else{
+                            space.html("{{ schedule.title }}")
+                            break
+                        }
+                    }
+                    var starthour = {{ schedule.start_time |time:"H" }} - 7
+                    var endhour = {{ schedule.end_time |time:"H" }} - 7
+                    var startmin = Math.floor({{ schedule.start_time |time:"i" }} / 10)
+                    var endmin = Math.floor({{ schedule.end_time |time:"i" }} / 10)
+                    if( starthour == endhour ) {
+                        for( let i = startmin ; i < endmin + 1 ; i++ ){
+                            var nspace = scheduler.dom.children(0).eq(2).children().eq(starthour).children().eq(day).children().eq(i+1)
+                            $(nspace).css('background-color',rc)
+                            nspace.addClass("filled")
+                            $(nspace).attr('title', '{{ schedule.title }}')
+                        }
+                    }else{
+                        var midhour = starthour+1
+                        for( let i = startmin ; i < 6 ; i++ ){
+                            var nspace = scheduler.dom.children(0).eq(2).children().eq(starthour).children().eq(day).children().eq(i+1)
+                            $(nspace).css('background-color',rc)
+                            nspace.addClass("filled")
+                            $(nspace).attr('title', '{{ schedule.title }}')
+                        }
+                        while( midhour < endhour ){
+                            for( let i = 0 ; i < 6 ; i++ ){
+                                var nspace = scheduler.dom.children(0).eq(2).children().eq(midhour).children().eq(day).children().eq(i+1)
+                                $(nspace).css('background-color',rc)
+                                nspace.addClass("filled")
+                                $(nspace).attr('title', '{{ schedule.title }}')
+                            }
+                            midhour += 1
+                        }
+                        for( let i = 0 ; i < endmin + 1 ; i++ ){
+                            var nspace = scheduler.dom.children(0).eq(2).children().eq(endhour).children().eq(day).children().eq(i+1)
+                            $(nspace).css('background-color',rc)
+                            nspace.addClass("filled")
+                            $(nspace).attr('title', '{{ schedule.title }}')
+                        }
+
+                    }
+                }
+
+
+           {% endfor %}
+       })
+        </script>
     </head>
     <body>
         <div id = 'header'><h1 id = 'title'>주간 플래너</h1></div>
+        <div>{% now "D d M Y" %}</div>
          <a href="/todo/post">(Add Todo)</a>
         <div id="myModal" class="modal">
             <div class="modal-content">
