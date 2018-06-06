@@ -1,4 +1,9 @@
-안녕하세요, {{ username }}님!
-<a href="/todo/">Todo</a>
-<a href="/habitmaker">Habit Maker</a>
-<a href="/sign_out">Sign Out</a>
+{% autoescape off %}
+<div>
+    안녕하세요, {{ username }}님!
+    <a href="/todo/">(Todo)</a>
+    <a href="/habitmaker/">(Habit Maker)</a>
+    <a href="/change_password/">(Change Password)</a>
+    <a href="/sign_out/">(Sign Out)</a>
+</div>
+{% endautoescape %}

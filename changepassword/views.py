@@ -3,6 +3,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_http_methods
 from .forms import ChangePasswordForm
 
@@ -25,7 +26,9 @@ def change_password_page(request):
         """
     if request.method == 'GET':
         change_password_form = ChangePasswordForm()
-        return render(request, 'changepassword/change_password.html', {'change_password_form': change_password_form})
+        header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
+        return render(request, 'changepassword/change_password.html', {'change_password_form': change_password_form,
+                                                                       'header_bar': header_bar})
 
     # POST
     change_password_form = ChangePasswordForm(request.POST)
@@ -38,18 +41,24 @@ def change_password_page(request):
 
         if not request.user.check_password(current_password):
             messages.info(request, '현재 비밀번호가 일치하지 않습니다.')
+            header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
             return render(request, 'changepassword/change_password.html',
-                          {'change_password_form': change_password_form})
+                          {'change_password_form': change_password_form,
+                           'header_bar': header_bar})
 
         if new_password != new_password_check:
             messages.info(request, '새로운 비밀번호가 일치하지 않습니다.')
+            header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
             return render(request, 'changepassword/change_password.html',
-                          {'change_password_form': change_password_form})
+                          {'change_password_form': change_password_form,
+                           'header_bar': header_bar})
 
         if current_password == new_password:
             messages.info(request, '기존 비밀번호와 같은 비밀번호로 변경하실 수 없습니다.')
+            header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
             return render(request, 'changepassword/change_password.html',
-                          {'change_password_form': change_password_form})
+                          {'change_password_form': change_password_form,
+                           'header_bar': header_bar})
 
         # change password
         request.user.set_password(new_password)
@@ -59,4 +68,6 @@ def change_password_page(request):
         return HttpResponseRedirect('/habitmaker/')
 
     # form is not valid
-    return render(request, 'changepassword/change_password.html', {'change_password_form': change_password_form})
+    header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
+    return render(request, 'changepassword/change_password.html', {'change_password_form': change_password_form,
+                                                                   'header_bar': header_bar})

@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_GET, require_http_methods
 
 from signin.models import CustomUser
@@ -16,7 +17,9 @@ def habit_list(request):
         # habits = Habit.objects.filter(user=request.user).order_by('created_date')
         habits = Habit.objects.order_by('created_date')
         habit_form = HabitForm()
-        return render(request, 'habitmaker/habit_list.html', {'habits': habits, 'habit_form': habit_form})
+        header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
+        return render(request, 'habitmaker/habit_list.html', {'habits': habits, 'habit_form': habit_form,
+                                                              'header_bar': header_bar})
 
     elif request.method == 'POST':
         habit_form = HabitForm(request.POST)
@@ -30,7 +33,9 @@ def habit_list(request):
 
         # Form is not valid.
         habits = Habit.objects.order_by('created_date')
-        return render(request, 'habitmaker/habit_list.html', {'habits': habits, 'habit_form': habit_form})
+        header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
+        return render(request, 'habitmaker/habit_list.html', {'habits': habits, 'habit_form': habit_form,
+                                                              'header_bar': header_bar})
 
 
 @require_GET
