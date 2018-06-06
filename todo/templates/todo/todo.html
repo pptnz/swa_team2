@@ -10,26 +10,11 @@
         <script type="text/javascript" src="../../static/todo.js" charset='utf-8'></script>
     </head>
     <body>
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {{ header_bar }}
         <div id = 'header'><h1 id = 'title'>주간 플래너</h1></div>
-        <button id = 'todoadd'>Add New</button>
+         <a href="/todo/post">(Add Todo)</a>
         <div id="myModal" class="modal">
             <div class="modal-content">
-                {% block content %}
-                    <h1>New post</h1>
-                    <form method="POST" class="post-form">{% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" id = "submit" class="save btn btn-default">Save</button>
-                    </form>
-                {% endblock %}
-
+                
             </div>
         </div>
         <div id = 'scheduler-wrap'>
