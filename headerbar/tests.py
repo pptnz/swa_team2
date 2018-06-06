@@ -1,3 +1,18 @@
+from django.apps import apps
 from django.test import TestCase
+from .apps import HeaderbarConfig
+from signin.models import User, CustomUser
 
-# Create your tests here.
+
+class HeaderBar(TestCase):
+    def setUp(self):
+        self.django_user = User.objects.create_user(username='testusername', password='testpassword')
+        self.custom_user = CustomUser.objects.create(django_user=self.django_user)
+
+    def test_apps(self):
+        self.assertEqual(HeaderbarConfig.name, 'headerbar')
+        self.assertEqual(apps.get_app_config('headerbar').name, 'headerbar')
+
+    def test_logout(self):
+        response = self.client.get('/sign_out/')
+        self.assertRedirects(response, '/sign_in/')
