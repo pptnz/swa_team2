@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'signin',
     'signup',
+    'headerbar',
     'findpassword',
+    'changepassword',
     'habitmaker',
     'todo'
 ]
