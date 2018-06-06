@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -49,6 +50,7 @@ def sign_in_page(request):
                 return HttpResponseRedirect(next_page)
 
             # login failed.
+            messages.info(request, '잘못된 ID나 비밀번호를 입력하셨습니다.')
             return render(request, 'signin/signin.html', {'sign_in_form': sign_in_form})
 
         # Form is not valid.

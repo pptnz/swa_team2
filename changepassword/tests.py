@@ -4,7 +4,7 @@ from .apps import ChangepasswordConfig
 from signin.models import User, CustomUser
 
 
-class FindPasswordTestCase(TestCase):
+class ChangePasswordTestCase(TestCase):
     def setUp(self):
         self.django_user = User.objects.create_user(username='testusername', password='testpassword')
         self.custom_user = CustomUser.objects.create(django_user=self.django_user)

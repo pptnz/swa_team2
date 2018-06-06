@@ -15,8 +15,11 @@
     Sign In Page!
     <form method="post">
         {% csrf_token %}
-        {{ sign_in_form }}
+        {% for field in sign_in_form  %}
+            {{ field.label_tag }} {{ field }} <br/>
+        {% endfor %}
         <input type="submit" value="Submit" />
     </form>
+    <a href="/sign_up/">Sign Up</a>
 </body>
 </html>
