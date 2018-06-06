@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -53,6 +54,8 @@ def change_password_page(request):
         # change password
         request.user.set_password(new_password)
         request.user.save()
+        update_session_auth_hash(request, request.user)
+        messages.info(request, '비밀번호가 정상적으로 변경되었습니다.')
         return HttpResponseRedirect('/habitmaker/')
 
     # form is not valid
