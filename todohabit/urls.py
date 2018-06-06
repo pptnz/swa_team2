@@ -20,6 +20,7 @@ from signin.views import sign_in_redirect
 urlpatterns = [
     url(r'^sign_in/', include('signin.urls')),
     url(r'^sign_up/', include('signup.urls')),
+    url(r'^sign_out/', include('headerbar.urls')),
     url(r'^find_password/', include('findpassword.urls')),
     url(r'^change_password/', include('changepassword.urls')),
     url(r'^todo/', include('todo.urls')),
