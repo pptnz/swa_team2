@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.decorators.http import require_POST
 from django.template.loader import render_to_string
 from signin.models import CustomUser
 from .models import ToDo
@@ -34,11 +34,21 @@ def post_todo(request):
             repetition_start = form.cleaned_data['repetition_start']
             repetition_end = form.cleaned_data['repetition_end']
 
-            todo = ToDo(user=user, title=title, date=date, start_time=start_time,
-                        end_time=end_time, repetition=repetition,
-                        repetition_start=repetition_start, repetition_end=repetition_end)
-            todo.save()
-            return HttpResponseRedirect('/todo/')
+            if start_time > end_time:
+                messages.info(request, '시작하는 시각이 끝나는 시각보다 작아야 합니다')
+            elif repetition and not (repetition_start <= date <= repetition_end):
+                messages.info(request, '날짜가 반복 기간 안에 있어야 합니다')
+
+            # Form is valid
+            else:
+                if not repetition:
+                    repetition_start = None
+                    repetition_end = None
+                todo = ToDo(user=user, title=title, date=date, start_time=start_time,
+                            end_time=end_time, repetition=repetition,
+                            repetition_start=repetition_start, repetition_end=repetition_end)
+                todo.save()
+                return HttpResponseRedirect('/todo/')
 
         # Form is not valid
         header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
