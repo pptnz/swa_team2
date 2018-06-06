@@ -5,6 +5,14 @@
   <title>New Todo</title>
 </head>
 <body>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{{ header_bar }}
 {% block content %}
   <h1>New Todo</h1>
   <form method="post">

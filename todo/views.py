@@ -1,12 +1,12 @@
-from django.http import HttpResponseRedirect, HT
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_POST
-
+from django.template.loader import render_to_string
 from signin.models import CustomUser
 from .models import ToDo
 from .forms import ToDoForm
 
-# Create your views here.
+
 def todo(request):
     pass
 
@@ -14,7 +14,8 @@ def todo(request):
 def post_todo(request):
     if request.method == 'GET':
         form = ToDoForm()
-        return render(request, 'todo/todo.html', {'form': form})
+        header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
+        return render(request, 'todo/todo.html', {'form': form, 'header_bar': header_bar})
 
     if request.method == 'POST':
         form = ToDoForm(request.POST)
@@ -36,4 +37,5 @@ def post_todo(request):
             return HttpResponseRedirect('/todo/')
 
         # Form is not valid
-        return render(request, 'todo/post_todo.html', {'form': form})
+        header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
+        return render(request, 'todo/post_todo.html', {'form': form, 'header_bar': header_bar})
