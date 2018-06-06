@@ -10,5 +10,5 @@ class ToDo(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     repetition = models.BooleanField(default=False)
-    repeat_start = models.DateField(null=True)
-    repeat_end = models.DateField(null=True)
+    repetition_start = models.DateField(null=True)
+    repetition_end = models.DateField(null=True)

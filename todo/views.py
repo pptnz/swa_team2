@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_POST
@@ -7,15 +8,18 @@ from .models import ToDo
 from .forms import ToDoForm
 
 
+@login_required
 def todo(request):
-    pass
+    header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
 
+    return render(request, 'todo/todo.html', {'header_bar': header_bar})
 
+@login_required
 def post_todo(request):
     if request.method == 'GET':
         form = ToDoForm()
         header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
-        return render(request, 'todo/todo.html', {'form': form, 'header_bar': header_bar})
+        return render(request, 'todo/post_todo.html', {'form': form, 'header_bar': header_bar})
 
     if request.method == 'POST':
         form = ToDoForm(request.POST)
@@ -28,11 +32,11 @@ def post_todo(request):
             end_time = form.cleaned_data['end_time']
             repetition = form.cleaned_data['repetition']
             repetition_start = form.cleaned_data['repetition_start']
-            repeat_end = form.cleaned_data['repeat_end']
+            repetition_end = form.cleaned_data['repetition_end']
 
             todo = ToDo(user=user, title=title, date=date, start_time=start_time,
                         end_time=end_time, repetition=repetition,
-                        repetition_start=repetition_start, repeat_end=repeat_end)
+                        repetition_start=repetition_start, repetition_end=repetition_end)
             todo.save()
             return HttpResponseRedirect('/todo/')
 
