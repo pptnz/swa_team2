@@ -14,14 +14,7 @@
         <button id = 'todoadd'>Add New</button>
         <div id="myModal" class="modal">
             <div class="modal-content">
-                {% block content %}
-                    <h1>New post</h1>
-                    <form method="POST" class="post-form">{% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" id = "submit" class="save btn btn-default">Save</button>
-                    </form>
-                {% endblock %}
-
+                
             </div>
         </div>
         <div id = 'scheduler-wrap'>
