@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'signin',
     'signup',
     'findpassword',
+    'changepassword',
     'habitmaker',
     'todo'
 ]
