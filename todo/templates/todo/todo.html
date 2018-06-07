@@ -2,17 +2,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;" charset="utf-8" />
-        <title>Add Todo</title>
+        <title>Momentum: 주간플래너</title>
         <link rel="stylesheet" href="../../static/todo.css">
+        {% load staticfiles %}
+        {% load bootstrap3 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript jquery=1 %}
+
         <script src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous" charset='utf-8'></script>
         <script type="text/javascript" src="../../static/todo.js" charset='utf-8'></script>
         <script type="text/javascript">
-        var today
-        var monday
-        var sunday
-        var thisWeeks
+        var today;
+        var monday;
+        var sunday;
+        var thisWeeks;
         function getRandomColor() {
               var letters = '0123456789ABCDEF';
               var color = '#';
@@ -96,6 +101,13 @@
         </script>
     </head>
     <body>
+        <div style="width: 740px;">
+            {{ header_bar }}
+        </div>
+
+        <div style="width: 700px; margin: 20px;">
+            {% bootstrap_messages %}
+        </div>
         <div id = 'header'><h1 id = 'title'>주간 플래너</h1></div>
         <div>{% now "D d M Y" %}</div>
         <a href="/todo/post">(Add Todo)</a>

@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>New Todo</title>
+    <meta charset="UTF-8">
+    <title>Momentum: 새 할 일</title>
+    {% load staticfiles %}
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery=1 %}
 </head>
 <body>
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-{{ header_bar }}
-{% block content %}
-  <h1>New Todo</h1>
-  <form method="post">
-      {% csrf_token %}
-      <table>
-          {{ form }}
-      </table>
-      <input type="submit" value="등록">
-  </form>
-{% endblock %}
+    <div style="width: 740px;">
+        {{ header_bar }}
+    </div>
 
+    <div style="width: 700px; margin: 20px;">
+        {% bootstrap_messages %}
+    </div>
+
+    <div style="width: 500px; margin: 20px;">
+        {% block content %}
+            <h1>새 할 일</h1>
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    등록
+                </button>
+                <a type="button" class="btn btn-danger" href="/todo/">취소</a>
+                {% endbuttons %}
+            </form>
+        {% endblock %}
+    </div>
 </body>
 </html>
