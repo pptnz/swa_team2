@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.todo, name='todo_add'),
-    url(r'^post/$', views.post_todo, name='post_todo')
+    url(r'^post$', views.post_todo, name='post_todo')
 ]
