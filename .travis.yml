@@ -16,6 +16,7 @@ matrix:
         pip3: true
       install:
         - pip3 install django
+        - pip3 install django-bootstrap3
       before_script:
         - python3 manage.py makemigrations
         - python3 manage.py migrate
