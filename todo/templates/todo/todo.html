@@ -55,7 +55,8 @@
                     var starthour = {{ schedule.start_time |time:"H" }} - 7
                     var endhour = {{ schedule.end_time |time:"H" }} - 7
                     var startmin = Math.floor({{ schedule.start_time |time:"i" }} / 10)
-                    var endmin = Math.floor({{ schedule.end_time |time:"i" }} / 10)
+                    var endmin =  Math.floor(({{ schedule.end_time |time:"i" }} - 1) / 10)
+
                     if( starthour == endhour ) {
                         for( let i = startmin ; i < endmin + 1 ; i++ ){
                             var nspace = scheduler.dom.children(0).eq(2).children().eq(starthour).children().eq(day).children().eq(i+1)
