@@ -49,9 +49,7 @@ class Scheduler extends DomObject{
 }
 
 $(document).ready(function(){
-            scheduler = new Scheduler($('<div id = "scheduler"></div>'))
-            $('#grid').append(scheduler.dom)
-           
-});
+    scheduler = new Scheduler($('<div id = "scheduler"></div>'))
+    $('#grid').append(scheduler.dom)
 
-// Get the modal
+});
