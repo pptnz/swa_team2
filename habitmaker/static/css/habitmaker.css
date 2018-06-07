@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    width: 710px;
+    width: 100vw;
 }
 
 h1 {
@@ -15,11 +15,11 @@ table {
 }
 
 .habit_title {
-    width: 500px;
+    width: 35vw;
 }
 
 .checkbox {
-    border-radius:0%;
+    border-radius: 0;
     background-color: white;
     height: 2em;
     width: 2em;
@@ -31,7 +31,7 @@ table {
 }
 
 .habit_form {
-    width: 570px;
+    width: 35vw;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -41,10 +41,10 @@ table {
 }
 
 input[type=submit] {
-    width: 130px;
+    width: 10vw;
     background-color: #4CAF50;
     color: white;
-    padding: 14px 20px;
+    padding: 14px;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
