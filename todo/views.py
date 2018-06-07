@@ -1,3 +1,4 @@
+import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -36,9 +37,11 @@ def post_todo(request):
             repetition_end = form.cleaned_data['repetition_end']
 
             if start_time > end_time:
-                messages.info(request, '시작하는 시각이 끝나는 시각보다 작아야 합니다')
+                messages.error(request, '시작하는 시각이 끝나는 시각보다 작아야 합니다')
             elif repetition and not (repetition_start <= date <= repetition_end):
-                messages.info(request, '날짜가 반복 기간 안에 있어야 합니다')
+                messages.error(request, '날짜가 반복 기간 안에 있어야 합니다')
+            if start_time < datetime.datetime(2000, 1, 1, 7, 0, 0).time():
+                messages.error(request, '시간을 07:00에서 23:59까지로 설정할 수 있습니다')
 
             # Form is valid
             else:

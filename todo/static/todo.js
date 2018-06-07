@@ -34,7 +34,7 @@ class Scheduler extends DomObject{
                 this.dom.children(0).eq(1).children().eq(i).append($('<div class = "todo">&nbsp</div>'))
             }
         }
-        for( let i = 0 ; i < 19 ; i++ ){
+        for( let i = 0 ; i < 17 ; i++ ){
             this.dom.children(0).eq(2).append($('<div class = "timeline"></div>'))
             for( let j = 0 ; j < 7 ; j++ ){
                 this.dom.children(0).eq(2).children().eq(i).append($('<div class = "dayline"></div>'))
