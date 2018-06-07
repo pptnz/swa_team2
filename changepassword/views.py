@@ -40,21 +40,21 @@ def change_password_page(request):
         new_password_check = form_data['new_password_check']
 
         if not request.user.check_password(current_password):
-            messages.info(request, '현재 비밀번호가 일치하지 않습니다.')
+            messages.error(request, '현재 비밀번호가 일치하지 않습니다.')
             header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
             return render(request, 'changepassword/change_password.html',
                           {'change_password_form': change_password_form,
                            'header_bar': header_bar})
 
         if new_password != new_password_check:
-            messages.info(request, '새로운 비밀번호가 일치하지 않습니다.')
+            messages.error(request, '새로운 비밀번호가 일치하지 않습니다.')
             header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
             return render(request, 'changepassword/change_password.html',
                           {'change_password_form': change_password_form,
                            'header_bar': header_bar})
 
         if current_password == new_password:
-            messages.info(request, '기존 비밀번호와 같은 비밀번호로 변경하실 수 없습니다.')
+            messages.error(request, '기존 비밀번호와 같은 비밀번호로 변경하실 수 없습니다.')
             header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
             return render(request, 'changepassword/change_password.html',
                           {'change_password_form': change_password_form,
@@ -64,7 +64,7 @@ def change_password_page(request):
         request.user.set_password(new_password)
         request.user.save()
         update_session_auth_hash(request, request.user)
-        messages.info(request, '비밀번호가 정상적으로 변경되었습니다.')
+        messages.success(request, '비밀번호가 정상적으로 변경되었습니다.')
         return HttpResponseRedirect('/habitmaker/')
 
     # form is not valid
