@@ -18,18 +18,23 @@
         {% bootstrap_messages %}
     </div>
 
-    <h1>Habit Maker</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ habit_form }}
-        <input type="submit" value="등록">
-    </form>
+    <div style="width: 100vw; padding-left: 20px;">
+        <h1>Habit Maker</h1>
+    </div>
 
-    <div>
+    <div style="width: 70vw; padding-left: 20px;">
+        <form method="post" style="display: inline-block;">
+            {% csrf_token %}
+            {{ habit_form }}
+            <input type="submit" value="등록">
+        </form>
+    </div>
+
+    <div style="width: 70vw; padding-left: 20px;">
         <table>
             {% for habit in habits %}
                 <tr>
-                    <td>
+                    <td style="padding-right: 20px; padding-bottom: 10px;">
                         {% if habit.today_success.count > 0 %}
                             <a href="{% url "toggle_success" habit.pk %}">
                                 <img class="checkbox" src="../../static/css/checkbox/checked.png">

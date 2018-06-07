@@ -96,15 +96,19 @@
     <body>
         {{ header_bar }}
 
-        <div style="width: 100vw; padding: 20px;">
+        <div style="width: 100vw; padding-left: 20px; padding-right: 20px;">
             {% bootstrap_messages %}
         </div>
-        <div id = 'header'><h1 id = 'title'>주간 플래너</h1></div>
+
+        <div id = 'header'>
+            <h1 id = 'title'>주간 플래너</h1>
+        </div>
         <div style="width: 100vw; padding: 20px;">
             <h4>{% now "m월 d일" %}</h4>
             <a href="/todo/post" class="btn btn-warning">새 할 일</a>
         </div>
-        <div id = 'scheduler-wrap' style="margin-left: 20px;">
+
+        <div id = 'scheduler-wrap' style="padding-left: 20px;">
             <div id = 'grid'>
             </div>
         </div>

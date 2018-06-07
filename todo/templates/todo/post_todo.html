@@ -11,14 +11,14 @@
 <body>
     {{ header_bar }}
 
-    <div style="width: 100vw; padding: 20px;">
+    <div style="width: 100vw; padding-left: 20px; padding-right: 20px;">
         {% bootstrap_messages %}
     </div>
 
-    <div style="width: 500px; margin: 20px;">
+    <div style="padding-left: 20px;">
         {% block content %}
             <h1>새 할 일</h1>
-            <form method="post">
+            <form method="post" style="width: 25vw; display: inline-block;">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}

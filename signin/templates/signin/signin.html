@@ -13,12 +13,12 @@
         {% bootstrap_messages %}
     </div>
 
-    <div style="width: 100vw; padding: 20px;">
+    <div style="width: 100vw; padding-left: 20px;">
         <img src="{% static "signin/logo.png" %}" style="width: 60vw;">
     </div>
 
-    <div style="width: 305px; margin: 20px;">
-        <form method="post">
+    <div style="padding-left: 20px;">
+        <form method="post" style="width: 30vw; display: inline-block;">
             {% csrf_token %}
             {% bootstrap_form sign_in_form %}
             {% buttons %}
@@ -31,7 +31,7 @@
         </form>
     </div>
 
-    <div style="width: 100vw; padding: 20px;">
+    <div style="width: 100vw; padding-left: 20px;">
         <img src="{% static "signin/message.png" %}">
     </div>
 </body>
