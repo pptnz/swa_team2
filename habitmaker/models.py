@@ -8,7 +8,7 @@ class Habit(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=20)
 
-    created_date = models.DateField(default=timezone.now)
+    created_date = models.DateField(default=timezone.now().date())
     success_days = models.PositiveIntegerField(default=0)
 
     def today_success(self):
@@ -27,8 +27,7 @@ class Habit(models.Model):
 
     def total_days(self):
         days = (timezone.now().date() - self.created_date + timedelta(days=1)).days
-        if days < 1:
-            return 1
+
         return days
 
     def success_rate(self):
