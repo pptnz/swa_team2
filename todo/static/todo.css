@@ -21,7 +21,7 @@ html {
 }
 .mainwrap{
     text-align: center;
-    width: 1500px;
+    width: 1239px;
     border-bottom: 3px solid rgb(253,187,128);
 }
 .todo{
@@ -38,7 +38,7 @@ html {
     height: 23px;
 }
 .timeline{
-    width: 1500px;
+    width: 1239px;
     height: 25px;
 }
 .dayline{
@@ -75,4 +75,13 @@ html {
 
 .schedule{
     background-color: orange;
+}
+
+.grid {
+    position: absolute;
+    left: 0px;
+}
+
+.scheduler {
+
 }

@@ -1,9 +1,30 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+{% load static %}
+<link rel="stylesheet" href="{% static "headerbar/headerbar.css" %}">
 {% autoescape off %}
-<div>
-    안녕하세요, {{ username }}님!
-    <a href="/todo/">(Todo)</a>
-    <a href="/habitmaker/">(Habit Maker)</a>
-    <a href="/change_password/">(Change Password)</a>
-    <a href="/sign_out/">(Sign Out)</a>
+<div class="headerbar">
+    <nav class="navbar navbar-default">
+        <div>
+            <div class="navbar-brand">
+                안녕하세요, {{ username }}님!
+            </div>
+        <ul class="nav navbar-nav" style="float: right; padding-right: 20px;">
+          <li>
+              <a href="/todo/">주간플래너</a>
+          </li>
+          <li>
+              <a href="/habitmaker/">해빗메이커</a>
+          </li>
+          <li>
+              <a href="/change_password/">비밀번호 변경</a>
+          </li>
+          <li>
+              <a href="/sign_out/">로그아웃</a>
+          </li>
+        </ul>
+        </div>
+    </nav>
 </div>
 {% endautoescape %}

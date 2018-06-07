@@ -60,22 +60,22 @@ def find_password_page(request):
                 django_user = User.objects.get(username=username)
                 custom_user = CustomUser.objects.get(django_user=django_user)
             except User.DoesNotExist:
-                messages.info(request, '존재하지 않는 ID입니다.')
+                messages.error(request, '존재하지 않는 ID입니다.')
                 return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
 
             if not custom_user.is_email_authenticated:
-                messages.info(request, '이메일이 등록되지 않은 ID입니다. 비밀번호 찾기가 불가능합니다.')
+                messages.error(request, '이메일이 등록되지 않은 ID입니다. 비밀번호 찾기가 불가능합니다.')
                 return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
 
             if django_user.email != email:
-                messages.info(request, 'ID에 등록된 이메일과 다른 이메일을 입력하셨습니다.')
+                messages.error(request, 'ID에 등록된 이메일과 다른 이메일을 입력하셨습니다.')
                 return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
 
             # send email
             temp_password = random_password()
             django_user.set_password(temp_password)
             django_user.save()
-            mail_subject = '아구아구: 임시 비밀번호를 보내드립니다.'
+            mail_subject = 'Momentum: 임시 비밀번호를 보내드립니다.'
             message = render_to_string('findpassword/temp_password_email.html', {
                 'nickname': django_user.first_name,
                 'temp_password': temp_password

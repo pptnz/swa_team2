@@ -14,5 +14,6 @@ class HeaderBar(TestCase):
         self.assertEqual(apps.get_app_config('headerbar').name, 'headerbar')
 
     def test_logout(self):
+        self.client.login(username='testusername', password='testpassword')
         response = self.client.get('/sign_out/')
         self.assertRedirects(response, '/sign_in/')
