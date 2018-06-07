@@ -35,9 +35,9 @@ def post_todo(request):
         repetition_end = form.cleaned_data['repetition_end']
 
         if start_time > end_time:
-            messages.info(request, '시작하는 시각이 끝나는 시각보다 작아야 합니다')
+            messages.error(request, '시작하는 시각이 끝나는 시각보다 작아야 합니다')
         elif repetition and not (repetition_start <= date <= repetition_end):
-            messages.info(request, '날짜가 반복 기간 안에 있어야 합니다')
+            messages.error(request, '날짜가 반복 기간 안에 있어야 합니다')
 
         # Form is valid
         else:
@@ -51,5 +51,6 @@ def post_todo(request):
             return HttpResponseRedirect('/todo/')
 
     # Form is not valid
+    messages.success(request, '일정이 추가되었습니다.')
     header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
     return render(request, 'todo/post_todo.html', {'form': form, 'header_bar': header_bar})
