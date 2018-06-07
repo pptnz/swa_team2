@@ -32,30 +32,29 @@ def sign_in_page(request):
         sign_in_form = SignInForm()
         return render(request, 'signin/signin.html', {'sign_in_form': sign_in_form})
 
-    if request.method == 'POST':
-        sign_in_form = SignInForm(request.POST)
-        if sign_in_form.is_valid():
-            username = sign_in_form.cleaned_data['username']
-            password = sign_in_form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
+    sign_in_form = SignInForm(request.POST)
+    if sign_in_form.is_valid():
+        username = sign_in_form.cleaned_data['username']
+        password = sign_in_form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
 
-            if user is not None:
-                # login succeeded
-                login(request, user)
+        if user is not None:
+            # login succeeded
+            login(request, user)
 
-                # If redirected by other sites, user has different next page to redirect.
-                if 'next' in request.GET:
-                    next_page = request.GET['next']
+            # If redirected by other sites, user has different next page to redirect.
+            if 'next' in request.GET:
+                next_page = request.GET['next']
 
-                messages.success(request, '{}님, 환영합니다!'.format(user.first_name))
-                return HttpResponseRedirect(next_page)
+            messages.success(request, '{}님, 환영합니다!'.format(user.first_name))
+            return HttpResponseRedirect(next_page)
 
-            # login failed.
-            messages.error(request, '잘못된 ID나 비밀번호를 입력하셨습니다.')
-            return render(request, 'signin/signin.html', {'sign_in_form': sign_in_form})
-
-        # Form is not valid.
+        # login failed.
+        messages.error(request, '잘못된 ID나 비밀번호를 입력하셨습니다.')
         return render(request, 'signin/signin.html', {'sign_in_form': sign_in_form})
+
+    # Form is not valid.
+    return render(request, 'signin/signin.html', {'sign_in_form': sign_in_form})
 
 
 @require_http_methods(['GET'])

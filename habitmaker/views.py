@@ -20,19 +20,18 @@ def habit_list(request):
         return render(request, 'habitmaker/habit_list.html', {'habits': habits, 'habit_form': habit_form,
                                                               'header_bar': header_bar})
 
-    elif request.method == 'POST':
-        habit_form = HabitForm(request.POST)
-        if habit_form.is_valid():
-            title = habit_form.cleaned_data['habit']
-            habit = Habit(user=request.user.custom_user, title=title)
-            habit.save()
-            return HttpResponseRedirect('/habitmaker/')
+    habit_form = HabitForm(request.POST)
+    if habit_form.is_valid():
+        title = habit_form.cleaned_data['habit']
+        habit = Habit(user=request.user.custom_user, title=title)
+        habit.save()
+        return HttpResponseRedirect('/habitmaker/')
 
-        # Form is not valid.
-        habits = Habit.objects.order_by('created_date')
-        header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
-        return render(request, 'habitmaker/habit_list.html', {'habits': habits, 'habit_form': habit_form,
-                                                              'header_bar': header_bar})
+    # Form is not valid.
+    habits = Habit.objects.order_by('created_date')
+    header_bar = render_to_string('headerbar/headerbar.html', {'username': request.user.first_name})
+    return render(request, 'habitmaker/habit_list.html', {'habits': habits, 'habit_form': habit_form,
+                                                          'header_bar': header_bar})
 
 
 @require_GET
