@@ -14,11 +14,6 @@
         var sunday
         var thisWeeks
         function getRandomColor() {
-              var letters = '0123456789ABCDEF';
-              var color = '#';
-              for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-              }
               var cssHSL = "hsl(" + 360 * Math.random() + ',' +
                  (25 + 70 * Math.random()) + '%,' +
                  (80 + 10 * Math.random()) + '%)';
