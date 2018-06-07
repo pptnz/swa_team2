@@ -52,7 +52,7 @@ def sign_up_page(request):
             email = form_data['email']
 
             if password != password_check:
-                messages.info(request, '비밀번호가 일치하지 않습니다.')
+                messages.error(request, '비밀번호가 일치하지 않습니다.')
                 return render(request, 'signup/signup.html', {'sign_up_form': sign_up_form})
 
             # check if duplicated user exists.
@@ -61,7 +61,7 @@ def sign_up_page(request):
                 CustomUser.objects.create(django_user=new_user, is_email_authenticated=False)
             except (sqlite3.IntegrityError, IntegrityError):
                 # username is duplicated
-                messages.info(request, '이미 존재하는 ID입니다. 다른 ID를 사용해주세요.')
+                messages.error(request, '이미 존재하는 ID입니다. 다른 ID를 사용해주세요.')
                 return render(request, 'signup/signup.html', {'sign_up_form': sign_up_form})
 
             # Send email if email is given.
@@ -85,7 +85,7 @@ def sign_up_page(request):
 
             # Try login with the new user.
             login(request, new_user)
-            messages.info(request, '회원가입이 완료되었습니다!')
+            messages.success(request, '회원가입이 완료되었습니다!')
             return HttpResponseRedirect('/habitmaker/')
 
         # form not valid.
@@ -98,14 +98,14 @@ def activate_email(request, uidb64, token):
         django_user = User.objects.get(pk=uid)
         custom_user = django_user.custom_user
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        messages.info(request, '인증 오류가 발생하였습니다.')
+        messages.error(request, '인증 오류가 발생하였습니다.')
         return HttpResponseRedirect('/sign_in/')
 
     if account_activation_token.check_token(django_user, token):
         custom_user.authenticate_email()
         custom_user.save()
-        messages.info(request, '성공적으로 인증되었습니다.')
+        messages.success(request, '성공적으로 인증되었습니다.')
         return HttpResponseRedirect('/sign_in/')
     else:
-        messages.info(request, '인증 오류가 발생하였습니다.')
+        messages.error(request, '인증 오류가 발생하였습니다.')
         return HttpResponseRedirect('/sign_in/')
