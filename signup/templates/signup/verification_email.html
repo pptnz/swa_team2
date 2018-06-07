@@ -1,6 +1,6 @@
 {% autoescape off %}
 {{ nickname }}님, 안녕하세요.
-아구아구 가입을 환영합니다.
+Momentum 가입을 환영합니다.
 
 인증된 이메일은 비밀번호 찾기 이외의 용도로는 사용되지 않습니다.
 이메일을 인증하시려면 아래의 링크를 클릭해주세요.
@@ -8,5 +8,5 @@
 http://{{ domain }}{% url 'activate_email' uidb64=uid token=token %}
 
 감사합니다.
-아구아구 팀 드림
+Momentum 팀 드림
 {% endautoescape %}

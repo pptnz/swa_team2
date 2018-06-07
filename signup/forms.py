@@ -6,4 +6,4 @@ class SignUpForm(forms.Form):
     password = forms.CharField(label='비밀번호', widget=forms.PasswordInput, min_length=6, max_length=30)
     password_check = forms.CharField(label='비밀번호 확인', widget=forms.PasswordInput, min_length=6, max_length=30)
     nickname = forms.CharField(label='닉네임', min_length=2, max_length=15)
-    email = forms.EmailField(label='이메일 (선택)', required=False)
+    email = forms.EmailField(label='이메일 (선택: 비밀번호 찾기에 사용됩니다.)', required=False)

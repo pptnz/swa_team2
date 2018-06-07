@@ -71,7 +71,7 @@ def sign_up_page(request):
                 new_user.save()
 
                 current_site = get_current_site(request)
-                mail_subject = '아구아구: 이메일을 인증해주세요.'
+                mail_subject = 'Momentum: 이메일을 인증해주세요.'
                 message = render_to_string('signup/verification_email.html', {
                     'nickname': nickname,
                     'domain': current_site.domain,
