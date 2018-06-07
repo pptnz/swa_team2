@@ -49,22 +49,7 @@ class Scheduler extends DomObject{
 }
 
 $(document).ready(function(){
-            scheduler = new Scheduler($('<div id = "scheduler"></div>'))
-            $('#grid').append(scheduler.dom)
-            var modal = document.getElementById('myModal');
+    scheduler = new Scheduler($('<div id = "scheduler"></div>'))
+    $('#grid').append(scheduler.dom)
 
-            // Get the button that opens the modal
-            var btn = document.getElementById("todoadd");
-
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
 });
-
-// Get the modal
