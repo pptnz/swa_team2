@@ -15,20 +15,24 @@
         {% bootstrap_messages %}
     </div>
 
-    <div style="padding-left: 20px;">
-        {% block content %}
-            <h1>새 할 일</h1>
-            <form method="post" style="width: 25vw; display: inline-block;">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                {% buttons %}
-                <button type="submit" class="btn btn-primary">
-                    등록
-                </button>
-                <a type="button" class="btn btn-danger" href="/todo/">취소</a>
-                {% endbuttons %}
-            </form>
-        {% endblock %}
+    <div style="width: 100vw; text-align: center;">
+        <div style="padding-left: 20px; display: inline-block;">
+            {% block content %}
+                <h1>새 할 일</h1>
+                <form method="post" style="width: 25vw; display: inline-block; text-align: left;">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                    <div style="text-align: center">
+                        <button type="submit" class="btn btn-primary">
+                            등록
+                        </button>
+                        <a type="button" class="btn btn-danger" href="/todo/">취소</a>
+                    </div>
+                    {% endbuttons %}
+                </form>
+            {% endblock %}
+        </div>
     </div>
 </body>
 </html>
