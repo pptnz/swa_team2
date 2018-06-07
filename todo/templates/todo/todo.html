@@ -19,7 +19,10 @@
               for (var i = 0; i < 6; i++) {
                 color += letters[Math.floor(Math.random() * 16)];
               }
-              return color;
+              var cssHSL = "hsl(" + 360 * Math.random() + ',' +
+                 (25 + 70 * Math.random()) + '%,' +
+                 (80 + 10 * Math.random()) + '%)';
+              return cssHSL;
         }
         $(document).ready(function(){
            var weekday = {% now "w" %}-1
@@ -95,12 +98,7 @@
     <body>
         <div id = 'header'><h1 id = 'title'>주간 플래너</h1></div>
         <div>{% now "D d M Y" %}</div>
-         <a href="/todo/post">(Add Todo)</a>
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                
-            </div>
-        </div>
+        <a href="/todo/post">(Add Todo)</a>
         <div id = 'scheduler-wrap'>
             <div id = 'grid'>
 
