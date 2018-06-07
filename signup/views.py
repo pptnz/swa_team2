@@ -81,6 +81,7 @@ def sign_up_page(request):
                 mail_subject, message, to=[email]
             )
             email.send()
+            messages.info(request, '인증 메일을 전송하였습니다.')
 
         # Try login with the new user.
         login(request, new_user)
