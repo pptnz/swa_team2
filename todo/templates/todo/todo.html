@@ -94,14 +94,12 @@
 
                     }
                 }
-
-
            {% endfor %}
        })
         </script>
     </head>
     <body>
-        <div style="width: 740px;">
+        <div style>
             {{ header_bar }}
         </div>
 
@@ -109,11 +107,12 @@
             {% bootstrap_messages %}
         </div>
         <div id = 'header'><h1 id = 'title'>주간 플래너</h1></div>
-        <div>{% now "D d M Y" %}</div>
-        <a href="/todo/post">(Add Todo)</a>
-        <div id = 'scheduler-wrap'>
+        <div style="width: 700px; margin: 20px;">
+            <h4>{% now "m월 d일" %}</h4>
+            <a href="/todo/post" class="btn btn-warning">새 할 일</a>
+        </div>
+        <div id = 'scheduler-wrap' style="margin: 30px;">
             <div id = 'grid'>
-
             </div>
         </div>
     </body>
