@@ -1,25 +1,38 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Agu Agu</title>
+    <title>Momentum: Seize the Moment</title>
 </head>
 <body>
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    Sign In Page!
-    <form method="post">
-        {% csrf_token %}
-        {% for field in sign_in_form  %}
-            {{ field.label_tag }} {{ field }} <br/>
-        {% endfor %}
-        <input type="submit" value="Submit" />
-    </form>
-    <a href="/sign_up/">Sign Up</a>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery=1 %}
+
+    <div style="width: 700px; margin: 20px;">
+        {% bootstrap_messages %}
+    </div>
+
+    <div style="width: 700px; margin: 20px;">
+        <img src="{% static "signin/logo.png" %}">
+    </div>
+
+    <div style="width: 300px; margin: 20px;">
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form sign_in_form %}
+            {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                로그인
+            </button>
+            <a type="button" class="btn btn-success" href="/sign_up/">회원가입</a>
+            {% endbuttons %}
+        </form>
+    </div>
+
+    <div style="width: 700px; margin: 20px;">
+        <img src="{% static "signin/message.png" %}">
+    </div>
 </body>
 </html>

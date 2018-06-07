@@ -47,10 +47,11 @@ def sign_in_page(request):
                 if 'next' in request.GET:
                     next_page = request.GET['next']
 
+                messages.success(request, '{}님, 환영합니다!'.format(user.first_name))
                 return HttpResponseRedirect(next_page)
 
             # login failed.
-            messages.info(request, '잘못된 ID나 비밀번호를 입력하셨습니다.')
+            messages.error(request, '잘못된 ID나 비밀번호를 입력하셨습니다.')
             return render(request, 'signin/signin.html', {'sign_in_form': sign_in_form})
 
         # Form is not valid.
