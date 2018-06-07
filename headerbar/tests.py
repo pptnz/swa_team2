@@ -17,3 +17,7 @@ class HeaderBar(TestCase):
         self.client.login(username='testusername', password='testpassword')
         response = self.client.get('/sign_out/')
         self.assertRedirects(response, '/sign_in/')
+
+    def test_logout_not_signed_in(self):
+        response = self.client.get('/sign_out/')
+        self.assertRedirects(response, '/sign_in/')

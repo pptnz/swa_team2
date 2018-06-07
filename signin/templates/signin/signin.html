@@ -9,30 +9,33 @@
     {% bootstrap_javascript jquery=1 %}
 </head>
 <body>
-    <div style="width: 100vw; padding: 20px;">
+    <div style="width: 100vw; padding: 20px; display: inline-block;">
         {% bootstrap_messages %}
     </div>
+    <div style="width: 100vw; text-align: center;">
+        <div style="width: 100vw; padding-left: 20px; display: inline-block;">
+            <img src="{% static "signin/logo.png" %}" style="width: 60vw;">
+        </div>
 
-    <div style="width: 100vw; padding: 20px;">
-        <img src="{% static "signin/logo.png" %}" style="width: 60vw;">
-    </div>
+        <div style="padding-left: 20px; display: inline-block; text-align: left;">
+            <form method="post" style="width: 30vw; display: inline-block;">
+                {% csrf_token %}
+                {% bootstrap_form sign_in_form %}
+                {% buttons %}
+                <div style="text-align: center;">
+                    <button type="submit" class="btn btn-primary">
+                        로그인
+                    </button>
+                    <a type="button" class="btn btn-success" href="/sign_up/" style="margin-bottom: ">회원가입</a>
+                    <a type="button" class="btn btn-warning" href="/find_password/">비밀번호를 잊으셨나요?</a>
+                </div>
+                {% endbuttons %}
+            </form>
+        </div>
 
-    <div style="width: 305px; margin: 20px;">
-        <form method="post">
-            {% csrf_token %}
-            {% bootstrap_form sign_in_form %}
-            {% buttons %}
-            <button type="submit" class="btn btn-primary">
-                로그인
-            </button>
-            <a type="button" class="btn btn-success" href="/sign_up/">회원가입</a>
-            <a type="button" class="btn btn-warning" href="/find_password/">비밀번호를 잊으셨나요?</a>
-            {% endbuttons %}
-        </form>
-    </div>
-
-    <div style="width: 100vw; padding: 20px;">
-        <img src="{% static "signin/message.png" %}">
+        <div style="width: 100vw; padding-left: 20px; display: inline-block;">
+            <img src="{% static "signin/message.png" %}" style="width: 60vw;">
+        </div>
     </div>
 </body>
 </html>

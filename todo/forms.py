@@ -5,7 +5,7 @@ from django.utils import timezone
 from .models import ToDo
 
 class ToDoForm(forms.Form):
-    title = forms.CharField(label='일정 제목', max_length=14,
+    title = forms.CharField(label='일정 제목', max_length=12,
                             widget=forms.TextInput(attrs={'class': 'todo_form'}))
     date = forms.DateField(label='날짜', widget=forms.SelectDateWidget, initial=timezone.now().date())
     start_time = forms.TimeField(label='시작 시각', widget=AdminTimeWidget(format="%H:%M", attrs={'placeholder': "HH:MM"}), initial=timezone.now().time())

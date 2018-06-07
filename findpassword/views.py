@@ -47,47 +47,46 @@ def find_password_page(request):
         find_password_form = FindPasswordForm()
         return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
 
-    if request.method == 'POST':
-        find_password_form = FindPasswordForm(request.POST)
+    find_password_form = FindPasswordForm(request.POST)
 
-        if find_password_form.is_valid():
-            # check user exists.
-            form_data = find_password_form.cleaned_data
-            username = form_data['username']
-            email = form_data['email']
+    if find_password_form.is_valid():
+        # check user exists.
+        form_data = find_password_form.cleaned_data
+        username = form_data['username']
+        email = form_data['email']
 
-            try:
-                django_user = User.objects.get(username=username)
-                custom_user = CustomUser.objects.get(django_user=django_user)
-            except User.DoesNotExist:
-                messages.error(request, '존재하지 않는 ID입니다.')
-                return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
+        try:
+            django_user = User.objects.get(username=username)
+            custom_user = CustomUser.objects.get(django_user=django_user)
+        except User.DoesNotExist:
+            messages.error(request, '존재하지 않는 ID입니다.')
+            return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
 
-            if not custom_user.is_email_authenticated:
-                messages.error(request, '이메일이 등록되지 않은 ID입니다. 비밀번호 찾기가 불가능합니다.')
-                return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
+        if not custom_user.is_email_authenticated:
+            messages.error(request, '이메일이 등록되지 않은 ID입니다. 비밀번호 찾기가 불가능합니다.')
+            return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
 
-            if django_user.email != email:
-                messages.error(request, 'ID에 등록된 이메일과 다른 이메일을 입력하셨습니다.')
-                return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
+        if django_user.email != email:
+            messages.error(request, 'ID에 등록된 이메일과 다른 이메일을 입력하셨습니다.')
+            return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
 
-            # send email
-            temp_password = random_password()
-            django_user.set_password(temp_password)
-            django_user.save()
-            mail_subject = 'Momentum: 임시 비밀번호를 보내드립니다.'
-            message = render_to_string('findpassword/temp_password_email.html', {
-                'nickname': django_user.first_name,
-                'temp_password': temp_password
-            })
-            email = EmailMessage(
-                mail_subject, message, to=[email]
-            )
-            email.send()
+        # send email
+        temp_password = random_password()
+        django_user.set_password(temp_password)
+        django_user.save()
+        mail_subject = 'Momentum: 임시 비밀번호를 보내드립니다.'
+        message = render_to_string('findpassword/temp_password_email.html', {
+            'nickname': django_user.first_name,
+            'temp_password': temp_password
+        })
+        email = EmailMessage(
+            mail_subject, message, to=[email]
+        )
+        email.send()
 
-            # Redirect to main page
-            messages.info(request, '이메일로 임시 비밀번호를 전송했습니다.')
-            return HttpResponseRedirect('/sign_in/')
+        # Redirect to main page
+        messages.info(request, '이메일로 임시 비밀번호를 전송했습니다.')
+        return HttpResponseRedirect('/sign_in/')
 
-        # form is not valid.
-        return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})
+    # form is not valid.
+    return render(request, 'findpassword/findpassword.html', {'find_password_form': find_password_form})

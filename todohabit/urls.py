@@ -26,5 +26,5 @@ urlpatterns = [
     url(r'^todo/', include('todo.urls')),
     url(r'^habitmaker/', include('habitmaker.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^$', sign_in_redirect)
+    url(r'^.*$', sign_in_redirect)
 ]
