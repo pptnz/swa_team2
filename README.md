@@ -1,7 +1,7 @@
 # SNU Software Application Team 2: Momentum
 
-Seize the Moment, Keep Your Momentum
-http://aguzim.mooo.com
+Seize the Moment, Keep Your Momentum\
+[Momentum](http://aguzim.mooo.com)
 
 | Banch | Status | Coverage |
 |:---: | :---: | :---: |
