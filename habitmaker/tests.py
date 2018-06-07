@@ -1,10 +1,8 @@
-import json
-
 from django.test import TestCase, Client
-from .models import Habit, SuccessCheck
 from django.apps import apps
 from .apps import HabitmakerConfig
 from signin.models import User, CustomUser
+from .models import Habit, SuccessCheck
 
 
 # Create your tests here.

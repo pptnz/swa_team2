@@ -3,7 +3,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from signin.models import CustomUser
+from django.views.decorators.http import require_http_methods
+
 from .models import ToDo
 from .forms import ToDoForm
 
@@ -15,6 +16,7 @@ def todo(request):
     return render(request, 'todo/todo.html', {'header_bar': header_bar, 'todo': todo_list })
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def post_todo(request):
     if request.method == 'GET':
         form = ToDoForm()
