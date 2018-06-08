@@ -43,16 +43,6 @@ class TodoTestCase(TestCase):
         response = self.client.get('/todo/post/')
         self.assertEqual(response.status_code, 200)
 
-    def test_post_todo_post_valid(self):
-        self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
-
-        response = self.client.post('/todo/post/', {'title': "pptnzconcert", 'date': '2018-06-09',
-                                                    'start_time': '18:00', 'end_time': '21:00', 'repetition': False,
-                                                    'repetition_start': '2018-06-09', 'repetition_end': '2018-06-09'})
-        self.assertRedirects(response, '/todo/')
-
-        response = self.client.get('/todo/')
-        self.assertContains(response, 'pptnzconcert')
 
     def test_post_todo_post_not_filled(self):
         self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
@@ -76,6 +66,7 @@ class TodoTestCase(TestCase):
                                                     'start_time': '18:00', 'end_time': '21:00', 'repetition': True,
                                                     'repetition_start': '2018-06-07', 'repetition_end': '2018-06-08'})
         self.assertEqual(response.status_code, 200)
+
 
     def test_post_todo_post_repetition(self):
         self.client.post('/sign_in/', {'username': 'testusername', 'password': 'testpassword'})
