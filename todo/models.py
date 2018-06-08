@@ -5,7 +5,7 @@ from signin.models import CustomUser
 
 class ToDo(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    title = models.CharField(max_length=14)
+    title = models.CharField(max_length=12)
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
